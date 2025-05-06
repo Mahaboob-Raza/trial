@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign Up</title>
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Firebase CDN (v8.x) -->
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+  <script src="firebaseConfig.js"></script>
+</head>
+<body>
+
+  <h1>Sign Up</h1>
+
+  <input type="email" id="signupEmail" placeholder="Email">
+  <input type="password" id="signupPassword" placeholder="Password">
+  <button id="signupBtn">Sign Up</button>
+
+  <p>Already have an account? <a href="signin.html">Sign In</a></p>
+
+  <script>
+    const signupBtn = document.getElementById("signupBtn");
+    signupBtn.addEventListener("click", () => {
+      const email = document.getElementById("signupEmail").value;
+      const password = document.getElementById("signupPassword").value;
+
+      auth.createUserWithEmailAndPassword(email, password)
+        .then(() => {
+          alert("User created! Go login now.");
+          window.location.href = "signin.html";
+        })
+        .catch((error) => {
+          alert(error.message);
+        });
+    });
+  </script>
+</body>
+</html>
