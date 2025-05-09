@@ -60,15 +60,24 @@ function saveDocumentMetadata(url) {
 
 // Load documents list
 function loadDocuments() {
-  documentsList.innerHTML = ""; // Clear old list
+  documentsList.innerHTML = "";
   let docs = JSON.parse(localStorage.getItem("documents")) || [];
   docs.forEach((doc, index) => {
     const li = document.createElement("li");
+    li.classList.add("list-group-item", "mb-3", "shadow-sm");
     li.innerHTML = `
-      <a href="${doc.fileURL}" target="_blank">
-        Document ${index + 1}
-      </a> 
-      (Uploaded: ${new Date(doc.uploadedAt).toLocaleString()})
+      <div>
+        <h5>📄 Document ${index + 1}</h5>
+        <p>Uploaded: ${new Date(doc.uploadedAt).toLocaleString()}</p>
+        <div class="d-flex gap-2">
+          <a href="${doc.fileURL}" target="_blank" class="btn btn-success btn-sm">
+            <i class="bi bi-eye"></i> View
+          </a>
+          <a href="${doc.fileURL}?download=true" class="btn btn-primary btn-sm" download>
+            <i class="bi bi-download"></i> Download
+          </a>
+        </div>
+      </div>
     `;
     documentsList.appendChild(li);
   });
