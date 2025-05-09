@@ -49,36 +49,35 @@ function uploadFileToCloudinary(file) {
 
 // Save document metadata to localStorage
 function saveDocumentMetadata(url) {
-  let docs = JSON.parse(localStorage.getItem("documents")) || [];
-  docs.push({
+  const currentDocument = {
     fileURL: url,
     uploadedAt: new Date().toISOString()
-  });
-  localStorage.setItem("documents", JSON.stringify(docs));
-  loadDocuments();
+  };
+  // Store only the current document
+  localStorage.setItem("currentDocument", JSON.stringify(currentDocument));
+  loadCurrentDocument();
 }
 
+
 // Load documents list
-function loadDocuments() {
-  documentsList.innerHTML = "";
-  let docs = JSON.parse(localStorage.getItem("documents")) || [];
-  docs.forEach((doc, index) => {
+function loadCurrentDocument() {
+  const documentsList = document.getElementById("documentsList");
+  documentsList.innerHTML = "";  // Clear old list
+  
+  const currentDocument = JSON.parse(localStorage.getItem("currentDocument"));
+  
+  if (currentDocument) {
     const li = document.createElement("li");
-    li.classList.add("list-group-item", "mb-3", "shadow-sm");
     li.innerHTML = `
-      <div>
-        <h5>📄 Document ${index + 1}</h5>
-        <p>Uploaded: ${new Date(doc.uploadedAt).toLocaleString()}</p>
-        <div class="d-flex gap-2">
-          <a href="${doc.fileURL}" target="_blank" class="btn btn-success btn-sm">
-            <i class="bi bi-eye"></i> View
-          </a>
-          <a href="${doc.fileURL}?download=true" class="btn btn-primary btn-sm" download>
-            <i class="bi bi-download"></i> Download
-          </a>
-        </div>
-      </div>
+      <a href="${currentDocument.fileURL}" target="_blank">
+        Current Uploaded Document
+      </a> 
+      (Uploaded: ${new Date(currentDocument.uploadedAt).toLocaleString()})
     `;
     documentsList.appendChild(li);
-  });
+  } else {
+    documentsList.innerHTML = "<li>No file uploaded yet.</li>";
+  }
 }
+      
+window.onload = loadCurrentDocument;
