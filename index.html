@@ -17,6 +17,10 @@
 
 <body class="bg-light">
 
+  
+  <!-- Navbar placeholder -->
+  <div id="navbar-placeholder"></div>
+
   <div class="container my-5">
     <h1 class="text-center mb-4">📁 File Sharing App</h1>
 
@@ -41,6 +45,15 @@
 
   <!-- Your Scripts -->
   <script src="script.js"></script>
+  
+  <!-- Navbar Fetch Script -->
+  <script>
+    fetch("navbar.html")
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById("navbar-placeholder").innerHTML = data;
+      });
+  </script>
 
 </body>
 

@@ -8,17 +8,8 @@
 </head>
 <body>
 
-    <header>
-    <div class="container nav-container">
-        <h1 class="logo">NotesHub</h1>
-        <nav class="navigation">
-        <a href="index.html">Home</a>
-        <a href="#">Upload</a>
-        <a href="#">Download</a>
-        <a href="signin.html">Sign In</a> 
-        </nav>
-    </div>
-    </header>
+  <!-- Navbar placeholder -->
+  <div id="navbar-placeholder"></div>
 
   <!-- Hero Section -->
   <section class="hero">
@@ -86,6 +77,15 @@
       <p>&copy; 2025 NotesHub. All rights reserved.</p>
     </div>
   </footer>
+
+  <!-- Navbar Fetch Script -->
+  <script>
+    fetch("navbar.html")
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById("navbar-placeholder").innerHTML = data;
+      });
+  </script>
 
 </body>
 </html>

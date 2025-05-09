@@ -12,6 +12,9 @@
   <script src="firebaseConfig.js"></script>
 </head>
 <body>
+  
+  <!-- Navbar placeholder -->
+  <div id="navbar-placeholder"></div>
 
   <h1>Log In</h1>
 
@@ -36,6 +39,15 @@
           alert(error.message);
         });
     });
+  </script>
+  
+  <!-- Navbar Fetch Script -->
+  <script>
+    fetch("navbar.html")
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById("navbar-placeholder").innerHTML = data;
+      });
   </script>
 </body>
 </html>
