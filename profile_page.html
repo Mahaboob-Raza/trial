@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Profile | NotesHub</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Navbar placeholder -->
+  <div id="navbar-placeholder"></div>
+
+  <div class="container">
+    <h1>Your Profile</h1>
+    <p>Email: <span id="userEmail">Loading...</span></p>
+
+    <h3>Your Uploaded Files</h3>
+    <ul id="uploadedFilesList" class="list-group"></ul>
+
+    <button id="logoutBtn">Logout</button>
+  </div>
+
+  <!-- Firebase v8.6.8 -->
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
+  <script src="firebaseConfig.js"></script>
+
+  <script>
+    // Load Navbar
+    fetch("navbar.html")
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById("navbar-placeholder").innerHTML = data;
+      });
+
+    // Check current user and show email
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        document.getElementById("userEmail").innerText = user.email;
+      } else {
+        document.getElementById("userEmail").innerText = "Not logged in";
+      }
+    });
+
+    // Load uploaded files from localStorage
+    function loadUploadedFiles() {
+      const docs = JSON.parse(localStorage.getItem("documents")) || [];
+      const list = document.getElementById("uploadedFilesList");
+      list.innerHTML = "";
+      if (docs.length === 0) {
+        const li = document.createElement("li");
+        li.className = "list-group-item";
+        li.innerText = "No uploads yet.";
+        list.appendChild(li);
+      } else {
+        docs.forEach((doc, index) => {
+          const li = document.createElement("li");
+          li.className = "list-group-item";
+          li.innerHTML = `
+            <a href="${doc.fileURL}" target="_blank">File ${index + 1}</a>
+            <small class="text-muted ms-2">(Uploaded: ${new Date(doc.uploadedAt).toLocaleString()})</small>
+          `;
+          list.appendChild(li);
+        });
+      }
+    }
+
+    // Logout
+    document.addEventListener("click", (e) => {
+      if (e.target && e.target.id === "logoutBtn") {
+        auth.signOut().then(() => {
+          window.location.href = "signin.html";
+        });
+      }
+    });
+
+    // Load uploads on page load
+    window.onload = loadUploadedFiles;
+  </script>
+</body>
+</html>
