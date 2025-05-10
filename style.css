@@ -344,16 +344,84 @@ footer {
   display: none;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .nav-container,
-  .navigation,
-  .filter-options {
-    flex-direction: column;
-    align-items: center;
-  }
+    body {
+      background: #f0f4f8;
+      font-family: 'Segoe UI', sans-serif;
+    }
 
-  .auth-box {
-    padding: 1.5rem;
-  }
-}
+    .upload-container {
+      max-width: 640px;
+      margin: 70px auto;
+      background: #ffffff;
+      padding: 45px 35px;
+      border-radius: 20px;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.07);
+      text-align: center;
+    }
+
+    .upload-container h2 {
+      font-weight: 700;
+      color: #222;
+      font-size: 1.9rem;
+    }
+
+    .upload-container p {
+      color: #5f6368;
+      font-size: 16px;
+      margin-top: 10px;
+      margin-bottom: 30px;
+    }
+
+    .drop-area {
+      border: 2px dashed #007bff;
+      padding: 50px 25px;
+      border-radius: 16px;
+      background: #f9fbff;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .drop-area.dragover {
+      background-color: #e6f2ff;
+      border-color: #0056b3;
+    }
+
+    .drop-area i {
+      font-size: 50px;
+      color: #007bff;
+    }
+
+    .drop-area h5 {
+      margin-top: 15px;
+      font-size: 18px;
+      color: #333;
+    }
+
+    .form-control {
+      margin-top: 20px;
+    }
+
+    #uploadBtn {
+      margin-top: 20px;
+      width: 100%;
+      border-radius: 10px;
+      font-weight: 600;
+    }
+
+    #uploadStatus {
+      margin-top: 15px;
+    }
+
+    #documentsList li {
+      background-color: #f1f3f5;
+      margin-top: 10px;
+      padding: 12px 16px;
+      border-radius: 10px;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    #documentsList li i {
+      color: #007bff;
+    }
